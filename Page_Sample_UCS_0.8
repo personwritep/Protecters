@@ -5,11 +5,9 @@
 // @description        「ブログ管理画面」のプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/ucs/*
-// @icon        https://www.google.com/s2/favicons?sz=64&domain=ameblo.jp
 // @noframes
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=ameblo.jp
 // @grant        none
-// @updateURL        https://github.com/personwritep/Protecters/raw/main/Page_Sample_UCS.user.js
-// @downloadURL        https://github.com/personwritep/Protecters/raw/main/Page_Sample_UCS.user.js
 // ==/UserScript==
 
 
@@ -44,14 +42,6 @@ function main(){
         'https://stat.profile.ameba.jp/profile_images/'+
         '20200605/08/63/tB/p/o03000300p_1591312706303_fbxee.png?cat=120';
 
-    /*
-    // ブラウザ タブタイトル
-    document.title='Ameba Blog Page';
-*/
-
-
-
-
     // 管理ヘッダー ユーザー名表示
     let header_amebaId=document.querySelector('#gHeaderRight .amebaId');
     if(header_amebaId){
@@ -67,11 +57,47 @@ function main(){
     if(user_blogTitle){
         user_blogTitle.textContent='Ameba Blog Sample'; }
 
-    // コメント管理　コメントユーザー名
-    let userL_name=document.querySelectorAll('.userList__nameLink');
-    for(let k=0; k<userL_name.length; k++){
-        if(userL_name[k].textContent=='Amb User'){
-            userL_name[k].textContent='Ameblo User'; }}
-
+    // コメント管理　コメントユーザー名の書換
+    let path_name=location.pathname;
+    if(path_name.includes('comment/commentlist')){ //「コメント管理」画面
+        nickname_set(); }
 
 } // main()
+
+
+
+function nickname_set(){
+    alert("🔴 ブログ主のコメントの1個をクリックしてください\n"+
+          "　　コメントユーザー名を「Ameblo User」に変更します");
+
+    let userL_i=document.querySelectorAll('.userList__item');
+    for(let k=0; k<userL_i.length; k++){
+        userL_i[k].onclick=()=>{
+            let nameLink=userL_i[k].querySelector('.userList__nameLink');
+            let user_img=userL_i[k].querySelector('.userList__thumbnail');
+            if(nameLink && user_img){
+                let user_name=nameLink.textContent;
+                let user_img_src=user_img.getAttribute('src');
+                if(user_name && user_img_src){
+                    rewite_comm_user(user_name, user_img_src); }}}}
+
+    function rewite_comm_user(name, img_src){
+        let userL_i=document.querySelectorAll('.userList__item');
+        for(let k=0; k<userL_i.length; k++){
+            let userL_name=userL_i[k].querySelector('.userList__nameLink');
+            let user_img=userL_i[k].querySelector('.userList__thumbnail');
+            if(userL_name.textContent==name){
+                userL_name.textContent='Ameblo User';
+                user_img.setAttribute('src', img_src); }
+            else{
+                userL_name.textContent='Comment User '+k; }}}
+
+} // nickname_set()
+
+
+
+
+
+
+
+
