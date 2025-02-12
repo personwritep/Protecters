@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Page Sample Blog 🔵
 // @namespace        http://tampermonkey.net/
-// @version        1.3
+// @version        1.4
 // @description        ブログページサンプルのプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
