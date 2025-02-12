@@ -1,0 +1,173 @@
+// ==UserScript==
+// @name        ホーム ユーザー情報プロテクタ 🔵
+// @namespace        http://tampermonkey.net/
+// @version        0.1
+// @description        HOMEのユーザー情報をプロテクト
+// @author        Ameba Blog User
+// @match        https://www.ameba.jp/home
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=ameba.jp
+// @grant        none
+// ==/UserScript==
+
+
+let date=new Date();
+let shift1=date.getHours()+1; // 1～24のランダム値
+let shift2=shift1%9 +1; // 1～9のランダム値
+
+
+let target1=document.querySelector('.HomeChecklist'); // 監視 target
+let monitor1=new MutationObserver(HomeChecklist);
+monitor1.observe(target1, {childList: true, subtree: true}); // 監視開始
+
+function HomeChecklist(){
+    monitor1.disconnect();
+
+    // 以下は「フォローフィード」のプロテクト
+    let APT=document.querySelectorAll('.Author_PrimaryText');
+    for(let k=0; k<APT.length; k++){
+        let APT_str=APT[k].textContent;
+        if(APT_str){
+            APT[k].textContent=stir(APT_str, shift1, shift2); }}
+
+    let AST=document.querySelectorAll('.Author_SecondaryText');
+    for(let k=0; k<AST.length; k++){
+        let AST_str=AST[k].textContent;
+        if(AST_str){
+            AST[k].textContent=stir(AST_str, shift1, shift2); }}
+
+    let title=document.querySelectorAll('.HomeChecklist_Article_Title');
+    for(let k=0; k<title.length; k++){
+        let title_str=title[k].textContent;
+        if(title_str){
+            title[k].textContent=stir(title_str, shift1, shift2); }}
+
+
+    let HCAI=document.querySelectorAll('.HomeChecklist_Article_Image');
+    for(let k=0; k<HCAI.length; k++){
+        HCAI[k].style.overflow='hidden';
+        let img=HCAI[k].querySelector('img');
+        if(img){
+            img.style.filter='blur(10px)'; }}
+
+
+    // 以下は「最近見たブログ」のプロテクト
+    let HBHAN=document.querySelectorAll('.HomeBlogHistory_Article_Name');
+    for(let k=0; k<HBHAN.length; k++){
+        let HBHAN_str=HBHAN[k].textContent;
+        if(HBHAN_str){
+            HBHAN[k].textContent=stir(HBHAN_str, shift1, shift2); }}
+
+    let HBHAT=document.querySelectorAll('.HomeBlogHistory_Article_Title');
+    for(let k=0; k<HBHAT.length; k++){
+        let HBHAT_str=HBHAT[k].textContent;
+        if(HBHAT_str){
+            HBHAT[k].textContent=stir(HBHAT_str, shift1, shift2); }}
+
+    monitor1.observe(target1, {childList: true, subtree: true});
+
+} // HomeChecklist()
+
+
+
+
+setTimeout(()=>{
+
+    let target2=document.querySelector('.HomeBlogComment'); // 監視 target
+    let monitor2=new MutationObserver(HomeBlogComment);
+    monitor2.observe(target2, {childList: true, subtree: true}); // 監視開始
+
+    HomeBlogComment();
+
+    // 以下は「コメントした記事」のプロテクト
+    function HomeBlogComment(){
+        monitor2.disconnect();
+
+        let PAN=document.querySelectorAll('.PcArticle_Name');
+        for(let k=0; k<PAN.length; k++){
+            let PAN_str=PAN[k].textContent;
+            if(PAN_str){
+                PAN[k].textContent=stir(PAN_str, shift1, shift2); }}
+
+        let PAT=document.querySelectorAll('.PcArticle_Title');
+        for(let k=0; k<PAT.length; k++){
+            let PAT_str=PAT[k].textContent;
+            if(PAT_str){
+                PAT[k].textContent=stir(PAT_str, shift1, shift2); }}
+
+        monitor2.observe(target2, {childList: true, subtree: true});
+
+    } // HomeBlogComment()
+
+
+    // メインユーザーの置換え
+    let Avatar=
+        'https://stat.profile.ameba.jp/profile_images/20200525/18/d6/PJ/p/'+
+        'o03000300p_1590399247329_rw286.png?cat=120';
+
+    // ユーザープロフィール
+    let PcProfile_Image=document.querySelector('.PcProfile_Image img');
+    if(PcProfile_Image){
+        PcProfile_Image.setAttribute('src', Avatar);
+        PcProfile_Image.style.filter='hue-rotate(90deg) saturate(4)'; }
+
+    let PcProfile_Name=document.querySelector('.PcProfile_Name');
+    if(PcProfile_Name){
+        PcProfile_Name.textContent='Ameblo User'; }
+
+    // ブログのタイトル
+    let BlogTitle_Link=document.querySelector('.HomeBlogModule_BlogTitle_Link');
+    if(BlogTitle_Link){
+        BlogTitle_Link.textContent='Ameba Blog Sample'; }
+
+}, 2000);
+
+
+
+
+function stir(str, shift1, shift2){
+    let ch=str.split('');
+    for(let i=0; i<ch.length; i++){
+        let alph=/[a-z]/;
+        let alph_=/[A-Z]/;
+        let num=/[0-9]/;
+        let zen=/^[\p{scx=Hiragana}\p{scx=Katakana}\p{scx=Han}]+$/u;
+
+        let ch_code;
+        let n_ch_code;
+
+        if(alph.test(ch[i])){
+            ch_code=ch[i].charCodeAt(0); // 97～122
+            if(ch_code+shift1>122){
+                n_ch_code=ch_code+shift1-26; }
+            else{
+                n_ch_code=ch_code+shift1; }
+            ch[i]=String.fromCharCode(n_ch_code); }
+
+        if(alph_.test(ch[i])){
+            ch_code=ch[i].charCodeAt(0); // 65～90
+            if(ch_code+shift1>90){
+                n_ch_code=ch_code+shift1-26; }
+            else{
+                n_ch_code=ch_code+shift1; }
+            ch[i]=String.fromCharCode(n_ch_code); }
+
+        if(num.test(ch[i])){
+            ch_code=ch[i].charCodeAt(0); // 48～57
+            if(ch_code+shift2>57){
+                n_ch_code=ch_code+shift2-10; }
+            else{
+                n_ch_code=ch_code+shift2; }
+            ch[i]=String.fromCharCode(n_ch_code); }
+
+        if(zen.test(ch[i])){
+            ch_code=ch[i].codePointAt(0); // unicode
+            n_ch_code=ch_code+shift2;
+            ch[i]=String.fromCodePoint(n_ch_code); }}
+
+    return ch.join('');
+
+} //stir();
+
+
+
+
