@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Page Sample 🔵
 // @namespace        http://tampermonkey.net/
-// @version        1.0
+// @version        1.3
 // @description        ブログページサンプルのプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -47,8 +47,8 @@ function main(){
 
     // アバターのURLを設定
     let Avatar=
-        'https://stat.profile.ameba.jp/profile_images/20200525/18/d6/PJ/p/'+
-        'o03000300p_1590399247329_rw286.png?cat=120';
+        'https://stat.profile.ameba.jp/profile_images/'+
+        '20200605/08/63/tB/p/o03000300p_1591312706303_fbxee.png?cat=120';
 
     // ブラウザ タブタイトル
     if(!location.pathname.includes('/form')){ // コメントダイアログの場合は除外
@@ -77,11 +77,11 @@ function main(){
 
 
     // アメブロヘッダー ログインユーザー表示
-    let login_Avatar=document.querySelector('._MaL9RhoC >img');
+    let login_Avatar=document.querySelector('._2KFZbuvC >img');
     if(login_Avatar){
         login_Avatar.setAttribute('srcset', Avatar); } // ログインユーザー アイコン
 
-    let login_name=document.querySelector('p._3UwSsVVD');
+    let login_name=document.querySelector('p._w6MHwCAy');
     if(login_name){
         login_name.textContent='Login User'; } // ログインユーザー名
 
@@ -210,13 +210,17 @@ function main(){
     let commentAuthor=document.querySelectorAll('[data-uranus-component="commentAuthor"] a');
     for(let k=0; k<commentAuthor.length; k++){
         let author=commentAuthor[k].textContent;
-        if(author=='personwritep'){
-            commentAuthor[k].textContent='PersonWritep'; }}
+        if(author=='personwritep'){ // 個人的な設定 🟢
+            commentAuthor[k].textContent='PersonWritep'; } // 個人的な設定 🟢
+        if(author=='Amb User'){ // プライベート設定 🟠
+            commentAuthor[k].textContent='Ameblo User'; }} // プライベート設定 🟠
 
     let commentText=document.querySelectorAll('[data-uranus-component="commentText"]');
     for(let k=0; k<commentText.length; k++){
-        commentText[k].textContent=
-            commentText[k].textContent.replace('personwritep', 'PersonWritep'); }
+        commentText[k].innerHTML=
+            commentText[k].innerHTML.replace('personwritep', 'PersonWritep'); // 個人的な設定 🟢
+        commentText[k].innerHTML=
+            commentText[k].innerHTML.replace('Amb User', 'Aemblo User'); } // プライベート設定 🟠
 
 
     // コメントダイアログ  ：コメント対象の記事
