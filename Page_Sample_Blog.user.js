@@ -40,7 +40,7 @@ function catch_key(){
 
 
 function main(){
-    alert("💢 Page Sample が処理を実行します");
+    alert("💢 Page Sample Blog が処理を実行します");
 
     // 管理画面のアメブロヘッダー ver.0.6 で追加
     let globalH_amebaId=document.querySelector('#gHeaderRight .amebaId');
