@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        フォロワー管理・ブロック管理プロテクタ 🔵
+// @name        フォロワー管理・ブロック管理 プロテクタ 🔵
 // @namespace        http://tampermonkey.net/
 // @version        0.3
 // @description        フォロワー管理・ブロック管理でユーザーID・ブログ名をプロテクトする 「Ctrl+F1」
