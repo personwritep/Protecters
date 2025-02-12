@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Page Sample UCS 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.7
+// @version        0.8
 // @description        「ブログ管理画面」のプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/ucs/*
