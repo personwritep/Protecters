@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        Page Sample UCS 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.8
+// @version        0.9
 // @description        「ブログ管理画面」のプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
-// @match        https://blog.ameba.jp/ucs/*
+// @match        https://blog.ameba.jp/*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=ameblo.jp
 // @noframes
 // @grant        none
@@ -48,6 +48,10 @@ function main(){
     let header_amebaId=document.querySelector('#gHeaderRight .amebaId');
     if(header_amebaId){
         header_amebaId.textContent='Ameblo User'; }
+
+    let header_amebaId_new=document.querySelector('.GlobalHeader_button-label__BCzy5');
+    if(header_amebaId_new){
+        header_amebaId_new.textContent='Ameblo User'; }
 
     // 管理トップ　ユーザーアイコン
     let user_profileImage=document.querySelector('.user__profileImage');
@@ -95,7 +99,6 @@ function nickname_set(){
                 userL_name.textContent='Comment User '+k; }}}
 
 } // nickname_set()
-
 
 
 
