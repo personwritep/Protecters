@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        アイコン画像 プロテクタ 🔵
 // @namespace        ameblo.jp
-// @version        0.7
+// @version        0.8
 // @description        アイコン画像のプロテクタ　「Ctrl+F3」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/*
@@ -73,7 +73,7 @@ function main(){
         let icons=document.querySelectorAll('img');
         for(let k=0; k<icons.length; k++){
             let size=icons[k].clientWidth;
-            if(size>20 && size<60){
+            if(size>20 && size<300){
                 let src=icons[k].getAttribute('src');
                 if(src.includes('stat.profile')){
                     icons[k].setAttribute('src', img_arr[(k+x) % img_arr.length]); }}}
@@ -92,5 +92,4 @@ function main(){
                 if(src){
                     icons[k].setAttribute('src', img_arr[k % img_arr.length]); }}}}
 */
-
 
