@@ -31,11 +31,13 @@ function HomeChecklist(){
         if(APT_str){
             APT[k].textContent=stir(APT_str, shift1, shift2); }}
 
+/*
     let AST=document.querySelectorAll('.Author_SecondaryText');
     for(let k=0; k<AST.length; k++){
         let AST_str=AST[k].textContent;
         if(AST_str){
             AST[k].textContent=stir(AST_str, shift1, shift2); }}
+*/
 
     let title=document.querySelectorAll('.HomeChecklist_Article_Title');
     for(let k=0; k<title.length; k++){
