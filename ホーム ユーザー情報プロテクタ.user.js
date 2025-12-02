@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        ホーム ユーザー情報 プロテクタ 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.2
+// @version        0.3
 // @description        HOMEのユーザー情報をプロテクト
 // @author        Ameba Blog User
 // @match        https://www.ameba.jp/home
@@ -31,13 +31,6 @@ function HomeChecklist(){
         if(APT_str){
             APT[k].textContent=stir(APT_str, shift1, shift2); }}
 
-/*
-    let AST=document.querySelectorAll('.Author_SecondaryText');
-    for(let k=0; k<AST.length; k++){
-        let AST_str=AST[k].textContent;
-        if(AST_str){
-            AST[k].textContent=stir(AST_str, shift1, shift2); }}
-*/
 
     let title=document.querySelectorAll('.HomeChecklist_Article_Title');
     for(let k=0; k<title.length; k++){
@@ -130,6 +123,13 @@ setTimeout(()=>{
 
 function stir(str, shift1, shift2){
     let ch=str.split('');
+
+    for(let i=0; i<ch.length; i++){
+        let kigo=/[[\].$*+/|()。、，,！!"'『』「」（）♯#＄%％&＆=＝\-－]/;
+        if(kigo.test(ch[i])){
+            ch[i]=''; }}
+
+
     for(let i=0; i<ch.length; i++){
         let alph=/[a-z]/;
         let alph_=/[A-Z]/;
@@ -171,6 +171,3 @@ function stir(str, shift1, shift2){
     return ch.join('');
 
 } //stir();
-
-
-
