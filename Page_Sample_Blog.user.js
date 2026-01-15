@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Page Sample Blog 🔵
 // @namespace        http://tampermonkey.net/
-// @version        1.5
+// @version        1.6
 // @description        ブログページサンプルのプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -79,11 +79,11 @@ function main(){
 
 
     // アメブロヘッダー ログインユーザー表示
-    let login_Avatar=document.querySelector('._1fy8GCTR >img');
+    let login_Avatar=document.querySelector('._1ADjOjLk >img');
     if(login_Avatar){
         login_Avatar.setAttribute('srcset', Avatar); } // ログインユーザー アイコン
 
-    let login_name=document.querySelector('p._2j4IoOdR');
+    let login_name=document.querySelector('._5eamczd_');
     if(login_name){
         login_name.textContent='Login User'; } // ログインユーザー名
 
