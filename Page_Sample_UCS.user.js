@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Page Sample UCS 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.9
+// @version        1.0
 // @description        「ブログ管理画面」のプレゼンテーション「Ctrl+F2」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/*
@@ -49,7 +49,7 @@ function main(){
     if(header_amebaId){
         header_amebaId.textContent='Ameblo User'; }
 
-    let header_amebaId_new=document.querySelector('.GlobalHeader_button-label__BCzy5');
+    let header_amebaId_new=document.querySelector('.GlobalHeader-module__4sJPsW__button-label');
     if(header_amebaId_new){
         header_amebaId_new.textContent='Ameblo User'; }
 
@@ -99,9 +99,3 @@ function nickname_set(){
                 userL_name.textContent='Comment User '+k; }}}
 
 } // nickname_set()
-
-
-
-
-
-
