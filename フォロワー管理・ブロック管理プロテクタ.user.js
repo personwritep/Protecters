@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        フォロワー管理・ブロック管理 プロテクタ 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.3
+// @version        0.4
 // @description        フォロワー管理・ブロック管理でユーザーID・ブログ名をプロテクトする 「Ctrl+F1」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/ucs/reader/readerlist.do
@@ -53,13 +53,13 @@ function main(){
 
 
     function change_block_id_shift(x){
-        let block_id=document.querySelectorAll('.BlogWebBlock_status__66mul > span:last-child');
+        let block_id=document.querySelectorAll('.BlogWebBlock-module__6DSusa__status > span:last-child');
         for(let k=0; k<block_id.length; k++){
             block_id[k].textContent=disguise(block_id[k].textContent, x); }}
 
 
     function change_block_name(){
-        let block_name=document.querySelectorAll('.BlogWebBlock_blog-title__HQRtx');
+        let block_name=document.querySelectorAll('.BlogWebBlock-module__6DSusa__blog-title');
         for(let k=0; k<block_name.length; k++){
             block_name[k].textContent=stir(block_name[k].textContent, shift1, shift2); }}
 
@@ -124,6 +124,4 @@ function main(){
         return ch.join('');
 
     } //stir();
-
-
 } // main()
