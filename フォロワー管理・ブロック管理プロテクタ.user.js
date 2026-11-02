@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        フォロワー管理・ブロック管理 プロテクタ 🔵
 // @namespace        http://tampermonkey.net/
-// @version        0.4
+// @version        0.5
 // @description        フォロワー管理・ブロック管理でユーザーID・ブログ名をプロテクトする 「Ctrl+F1」
 // @author        Ameba Blog User
 // @match        https://blog.ameba.jp/ucs/reader/readerlist.do
@@ -44,7 +44,7 @@ function main(){
     change_block_name();
 
 
-    function change_id_shift(x){
+    function change_id_shift(x){ // フォロワー管理のユーザーID
         let name=document.querySelectorAll('.name');
         for(let k=0; k<name.length; k++){
             let name_link=name[k].querySelector('a');
@@ -52,14 +52,14 @@ function main(){
 
 
 
-    function change_block_id_shift(x){
-        let block_id=document.querySelectorAll('.BlogWebBlock-module__6DSusa__status > span:last-child');
+    function change_block_id_shift(x){ // ブロック対象のユーザーID
+        let block_id=document.querySelectorAll('._6DSusa_status > span:last-child');
         for(let k=0; k<block_id.length; k++){
             block_id[k].textContent=disguise(block_id[k].textContent, x); }}
 
 
-    function change_block_name(){
-        let block_name=document.querySelectorAll('.BlogWebBlock-module__6DSusa__blog-title');
+    function change_block_name(){ // ブロック対象のブログ名
+        let block_name=document.querySelectorAll('._6DSusa_blog-title');
         for(let k=0; k<block_name.length; k++){
             block_name[k].textContent=stir(block_name[k].textContent, shift1, shift2); }}
 
